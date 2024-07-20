@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // Online Java Compiler\
+// Use this editor to write, compile and run your Java code online\
+\
+class DijkstraAlgo \{\
+ static   final int  N=6;\
+   \
+    \
+    static int minDist(int[] dist, boolean[] visited)\{\
+        int min=Integer.MAX_VALUE; int minIndex=-1;\
+        for(int i=0;i<N;i++)\
+        \{\
+            if(!visited[i] && dist[i]<=min)\
+            \{\
+                min=dist[i];\
+                minIndex=i;\
+            \}\
+        \}\
+        \
+        return minIndex;\
+        \
+    \}\
+    static void dijkstra(int g[][], int source)\{\
+        int[] dist=new int[N];\
+        boolean[] visited=new boolean[N];\
+        \
+        for(int i=0;i<N;i++)\
+        \{\
+            dist[i]=Integer.MAX_VALUE;\
+            visited[i]=false;\
+        \}\
+        dist[source]=0;\
+        \
+        for(int i=0;i<N-1;i++)\
+        \{\
+            int u=minDist(dist,visited);\
+            \
+            visited[u]=true;\
+            \
+            for(int j=0;j<N;j++)\
+            \{\
+                if(!visited[j] && g[u][j]!=0 && dist[u]!=Integer.MAX_VALUE && dist[j]>dist[u]+g[u][j])\
+                dist[j]=dist[u]+g[u][j];\
+            \}\
+        \}\
+        \
+        \
+        \
+        for(int i=0;i<N;i++)\
+        System.out.println("vertex: "+i+": distance"+dist[i]);\
+        \
+    \}\
+    public static void main(String[] args) \{\
+         int graph[][] = new int[][] \{ \{0,4,5,0,0,0\},\
+                                      \{4,0,11,9,7,0\},\
+                                      \{5,11,0,0,3,0\},\
+                                      \{0,9,0,0,13,2\},\
+                                      \{0,7,3,13,0,6\},\
+                                      \{0,0,0,2,6,0\}\};\
+        dijkstra(graph, 0);\
+    \}\
+\}}

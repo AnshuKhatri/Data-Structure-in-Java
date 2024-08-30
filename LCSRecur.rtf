@@ -1,0 +1,36 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.util.*; \
+class LongestCommonSubSequence\
+\{\
+    \
+static public int lcs (String x, String y, int m, int n)\{\
+    \
+  if(m==0 || n==0)\
+  return 0;\
+  \
+  else if(x.charAt(m-1)==y.charAt(n-1))\
+  return 1+lcs(x,y,m-1,n-1);\
+  else\
+  return Math.max(lcs(x,y,m-1,n),lcs(x,y,m,n-1));\
+\
+\}\
+	// Main function \
+	public static void main(String[] args) \
+	\{ \
+\
+        String S1 = "AGGTAB";\
+        String S2 = "GXTXAYB";\
+        int m = S1.length();\
+        int n = S2.length();\
+\
+        System.out.println("Length of LCS is"\
+                           + " " + lcs(S1, S2, m, n));\
+	\} \
+\}\
+}

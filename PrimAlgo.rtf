@@ -1,0 +1,93 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.util.*;\
+public class MST\
+\{\
+    private static final int v = 5;\
+    void printMST(int parent[], int[][] graph )\
+    \{\
+        \
+        for(int i=1;i<v;i++)\
+        \{\
+            System.out.println(parent[i]+"-"+i+":"\
+            +graph[i][parent[i]]);\
+        \}\
+        \
+    \}\
+    \
+ static int minKey(int[] keys,boolean[] visited)\
+ \{\
+     int min=Integer.MAX_VALUE;\
+     int minIndex=-1;\
+     \
+     for(int i=0;i<v;i++)\
+     \{\
+         if(keys[i]<min && visited[i]==false)\
+         \{\
+            min=keys[i];\
+            minIndex=i;\
+         \}\
+     \}\
+     return minIndex;\
+     \
+ \}\
+\
+    void primMST(int[][] graph)\
+    \{\
+        int parent[]=new int[v];\
+        \
+        int keys[]=new int[v];\
+        boolean[] visited=new boolean[v];\
+        for (int i=0;i<v;i++)\
+        \{\
+            keys[i]=Integer.MAX_VALUE;\
+            visited[i]=false;\
+        \}\
+        \
+        \
+        \
+        keys[0]=0;\
+        parent[0]=-1;\
+        \
+        for(int count=0;count<v-1;count++)\
+        \{\
+            int u=minKey(keys,visited);\
+            visited[u]=true;\
+            for(int i=0;i<v;i++)\
+            \{\
+                if(graph[u][i]!=0 && visited[i]==false\
+                && graph[u][i]<keys[i])\
+                \{\
+                    parent[i]=u;\
+                    keys[i]=graph[u][i];\
+                \}\
+            \}\
+        \}\
+        \
+       printMST(parent,graph); \
+        \
+    \}\
+    \
+    \
+public static void main(String[] args)\
+    \{\
+    MST t = new MST();\
+        int graph[][] = new int[][] \{ \{ 0, 2, 0, 6, 0 \},\
+                                      \{ 2, 0, 3, 8, 5 \},\
+                                      \{ 0, 3, 0, 0, 7 \},\
+                                      \{ 6, 8, 0, 0, 9 \},\
+                                      \{ 0, 5, 7, 9, 0 \} \};\
+ \
+        // Print the solution\
+        t.primMST(graph);\
+        \
+    \}\
+    \
+    \}\
+    \
+    }

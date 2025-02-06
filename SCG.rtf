@@ -1,0 +1,136 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.util.*;\
+class Graph\
+\{\
+    int vertices;\
+    LinkedList<Integer> adj[];\
+    \
+    Graph(int v)\
+    \{\
+        vertices=v;\
+        adj=new LinkedList[v];\
+        for(int i=0;i<v;i++)\
+        adj[i]=new LinkedList();\
+    \}\
+    \
+    void addEdge(int u,int v)\
+    \{\
+        adj[u].add(v);\
+    \}\
+    void dfsUtil(int v, boolean visited[])\
+    \{\
+        \
+       visited[v]=true;\
+       // System.out.println(v+",");\
+        \
+       for(int i=0;i<adj[v].size();i++)\
+            \{\
+                if(visited[adj[v].get(i)]==false)\
+                \{\
+                     dfsUtil(adj[v].get(i),visited);\
+                \}\
+            \}\
+        \}\
+   void dfsUtil2(int v, boolean visited[])\
+    \{\
+        \
+       visited[v]=true;\
+       System.out.println(v+",");\
+        \
+       for(int i=0;i<adj[v].size();i++)\
+            \{\
+                 \
+                if(visited[adj[v].get(i)]==false)\
+                \{\
+                \
+                     dfsUtil2(adj[v].get(i),visited);\
+                     \
+                \}\
+               \
+            \}\
+    \}\
+    \
+    Graph transpose()\
+    \{\
+        \
+        Graph g=new Graph(vertices);\
+        for(int i=0;i<vertices;i++)\
+        \{\
+            for(int j=0;j<adj[i].size();j++)\
+            g.adj[adj[i].get(j)].add(i);\
+        \}\
+        \
+        \
+        return g;\
+    \}\
+        \
+    boolean isSC()\
+    \{\
+        boolean[] visited=new boolean[vertices];\
+        \
+        //false for all vertices\
+        for(int i=0;i<vertices;i++)\
+        visited[i]=false;\
+        \
+        //call dfs\
+        dfsUtil(0,visited);\
+        \
+        //\
+        for(int i=0;i<vertices;i++)\
+        if(visited[i]==false)\
+        return false;\
+        \
+        //transpose\
+        Graph gr=transpose();\
+        \
+        //set false visited\
+        for(int i=0;i<vertices;i++)\
+        visited[i]=false;\
+        \
+        //call dfs\
+        gr.dfsUtil2(0,visited);\
+        \
+        //check\
+        for(int i=0;i<vertices;i++)\
+        if(visited[i]==false)\
+        return false;\
+        \
+        \
+        return true;\
+        \
+     \
+    \}\
+  \
+    \
+  \
+    public static void main(String[] args)\
+    \{\
+        // Create a graph given in the above diagram\
+         Graph g1 = new Graph(5);\
+        g1.addEdge(0, 1);\
+        g1.addEdge(1, 2);\
+        g1.addEdge(2, 3);\
+        g1.addEdge(3, 0);\
+        g1.addEdge(2, 4);\
+        g1.addEdge(4, 2);\
+        if (g1.isSC())\
+            System.out.println("Yes");\
+        else\
+            System.out.println("No");\
+            \
+             Graph g2 = new Graph(4); \
+    g2.addEdge(0, 1); \
+    g2.addEdge(1, 2); \
+    g2.addEdge(2, 3); \
+    if (g2.isSC()) \
+      System.out.println("Yes"); \
+    else\
+      System.out.println("No"); \
+    \}\
+\}}

@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // Online Java Compiler\
+// Use this editor to write, compile and run your Java code online\
+import java.util.*;\
+public class Graph \{\
+    \
+    int v;\
+    LinkedList<Integer> adj[];\
+    Graph(int v)\
+    \{\
+        this.v=v;\
+        adj = new LinkedList[v];\
+        for(int i=0;i<v;i++)\
+        adj[i]=new LinkedList();\
+    \}\
+    \
+    void addEdge(int v, int w)\
+    \{\
+        adj[v].add(w);  // Add w to v's list.\
+        adj[w].add(v);  //Graph is undirected\
+    \}\
+ void printVertexCover()\
+ \{\
+     boolean[] visited=new boolean[v];\
+    for(int i=0;i<v;i++)\
+    visited[i]=false;\
+    \
+    Iterator<Integer> i;\
+    for(int x=0;x<v;x++)\
+    \{\
+        if(visited[x]==false)\
+        \{\
+            i=adj[x].iterator();\
+            while(i.hasNext())\
+            \{\
+                int y=i.next();\
+                \
+                if(visited[y]==false)\
+                \{   visited[x]=true;\
+                    visited[y]=true;\
+                    break;\
+                \}\
+            \}\
+        \}\
+    \}\
+    \
+    \
+      for(int j=0;j<v;j++)\
+      if(visited[j]==true)\
+      System.out.println(j);\
+ \}\
+\
+    public static void main(String[] args) \{\
+       Graph g = new Graph(7);\
+        g.addEdge(0, 1);\
+        g.addEdge(0, 2);\
+        g.addEdge(1, 3);\
+        g.addEdge(3, 4);\
+        g.addEdge(4, 5);\
+        g.addEdge(5, 6);\
+ \
+        g.printVertexCover();\
+    \}\
+\}}
